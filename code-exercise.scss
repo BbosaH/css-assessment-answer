@@ -1,0 +1,159 @@
+// variables
+$mm-sample-font-sans-serif: Helvetica, Arial, sans-serif;
+$mm-sample-font-serif: Georgia, "Times New Roman", Times, serif;
+$content-padding: 25px;
+
+//Dimention for styles to change to Desktop versions
+$desktop: 840px;
+
+@mixin desktop {
+  @media (min-width : #{$desktop}) {
+    @content;
+  }
+}
+
+html {
+  font-size: 62.5%; //why do we set the font size to this value at the html level?
+  position: relative;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+body {
+  background-color: #f3f3f3;
+}
+
+header {
+  //nav work is already completed, no need to touch this
+  height: 6rem;
+  background-color: #002f6c;
+  box-sizing: border-box;
+  padding: 2.5rem 0;
+
+  .container {
+    margin-top: -0.6rem;
+  }
+
+  img {
+    width: 16rem;
+  }
+}
+
+.container {
+  margin-top: 5rem;
+}
+
+//Typography and button styles - included are some placeholders for styling
+//Keep in mind, a component may use one placeholder for a title / etc now but it
+// may change in 6 months and we want to be able to swap via only CSS changes
+h1,
+h2,
+%h2 {
+  font-family: $mm-sample-font-serif;
+  color: black;
+}
+
+p,
+h1,
+h2,
+%h2 {
+  margin: 0 0 2rem 0;
+}
+h1 {
+  font-size: 4rem;
+}
+h2,
+%h2 {
+  font-size: 3rem;
+}
+p {
+  font-size: 1.4rem;
+}
+
+a {
+  color: #005a9f;
+  &:hover {
+    color: #002f6c;
+  }
+}
+
+%eyebrow {
+  font-size: 1rem;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+  line-height: 1.2rem;
+  margin-bottom: 2.4rem;
+}
+
+%subtext {
+  font-size: 1.2rem;
+}
+
+%btn-primary {
+  color: #000;
+  font-size: 1rem;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 1.2rem 4rem;
+  background-color: yellow;
+  border: 0;
+  border-radius: 0;
+}
+
+main {
+  .intro-p {
+    @extend p;
+    @include desktop {
+      width: 70%;
+    }
+  }
+  .card-container {
+    @include desktop {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-gap: 30px;
+      grid-auto-rows: 600px;
+    }
+  }
+
+  .mm-card {
+    //feel free to make any comments to explain your thinking
+    //I think most of the Items in the card Have styles they can extend. We do not need to create new styles for them.
+    //I also think I need to first style the file to cater for mobile (mobile first) then I can add styles for The desktop website.
+
+    background: white;
+    margin-top: 15px;
+
+    .image {
+      //including some base styles so this shows up in the basic page, feel free to change these
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      min-height: 27rem;
+      width: 100%;
+    }
+
+    .content {
+      padding: $content-padding;
+      margin-bottom: 15px;
+      //this can extend eyebrow and will be okay
+      .category-title {
+        @extend %eyebrow;
+      }
+      //this can extend h2 and will be okay
+      .card-title {
+        @extend %h2;
+      }
+      .content-p {
+        height: 120px;
+      }
+      //this can extend btn-primary and will be okay
+      button {
+        @extend %btn-primary;
+      }
+      .legal-text {
+        font-size: 12px;
+      }
+    }
+  }
+}
